@@ -4,16 +4,16 @@
         <div class="small-6 columns">
             <h1 class="text-center">YOU</h1>
             <div class="healthbar">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
-
+                <div class="healthbar health text-center" :style="{width: playerHealth + '%'}">
+                    {{ playerHealth }}
                 </div>
             </div>
         </div>
         <div class="small-6 columns">
             <h1 class="text-center">MONSTER</h1>
             <div class="healthbar">
-                <div class="healthbar text-center" style="background-color: green; margin: 0; color: white;">
-
+                <div class="healthbar health text-center" :style="{width: monsterHealth + '%'}">
+                    {{ monsterHealth }}
                 </div>
             </div>
         </div>
@@ -63,11 +63,11 @@ export default {
             this.monsterHealth = 100;
             this.playerHealth = 100;
             this.logs = [];
-            this.isGameStarted = !this.isGameStarted
+            this.isGameStarted = !this.isGameStarted;
         },
         giveUp() {
             this.isGameStarted = !this.isGameStarted;
-            alert('The monster defeated you...')
+            alert('The monster defeated you...');
         },
         attack() {
             //TODO
@@ -129,12 +129,14 @@ export default {
         playerHealth: function(oldValue, newValue) {
             if (newValue <= 0) {
                 this.isGameStarted = !this.isGameStarted;
+                this.logs.push('Monster has won!');
                 alert('The monster has defeated you...');
             }
         },
         monsterHealth: function(oldValue, newValue) {
             if (newValue <= 0) {
                 this.isGameStarted = !this.isGameStarted;
+                this.logs.push('Player has won!');
                 alert('You defeated the monster!');
             }
         }
